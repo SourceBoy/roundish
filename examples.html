@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Roundish Navigation Examples</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<style type="text/css">
+		code {
+			display: block;
+			margin-bottom: 20px;
+		}
+
+		#histories {
+			font-weight: bold;
+		}
+	</style>
+</head>
+<body>
+
+<code id="info"></code>
+
+<code>
+	Roundish.navigate() histories = <span id="histories"></span>
+</code>
+
+<div id="links">
+	<a href="/somewhere" data-replace="false">/somewhere</a>
+	<br><br>
+	<a href="/page/1" data-replace="false">/page/1</a>
+	<br><br>
+	<a href="/new-destination" data-replace="true">Replace current path with /new-destination</a>
+</div>
+
+<script src="roundish.js"></script>
+
+<script>
+
+	var info = document.getElementById('info'),
+		histories = document.getElementById('histories'),
+		title = document.title;
+
+	Roundish.addRoute(location.pathname, function() {
+		var output = 'Path is ' + location.pathname;
+		document.title = title;
+		info.innerHTML = output + '<br>' + Date.now();
+		histories.innerHTML = JSON.stringify(Roundish.getHistories());
+	});
+
+	Roundish.addRoute('/somewhere', function() {
+		var output = 'Path is /somewhere, title has been changed to HELLO';
+		document.title = 'HELLO';
+		info.innerHTML = output + '<br>' + Date.now();
+		histories.innerHTML = JSON.stringify(Roundish.getHistories());
+	});
+
+	Roundish.addRoute('/page/:n', function(p) {
+		var output = 'Path is ' + location.pathname + '. Parameter <b>n</b> is <b>' + p.n + '</b>';
+		document.title = title;
+		info.innerHTML = output + '<br>' + Date.now();
+		histories.innerHTML = JSON.stringify(Roundish.getHistories());
+	});
+
+	Roundish.addRoute('/new-destination', function() {
+		var output = 'Path is replaced with /new-destination';
+		document.title = title;
+		info.innerHTML = output + '<br>' + Date.now();
+		histories.innerHTML = JSON.stringify(Roundish.getHistories());
+	});
+
+	document.getElementById('links').onclick = function(e) {
+		e.preventDefault();
+		var replace = (e.target.getAttribute('data-replace') === 'true') ? true : false;
+		Roundish.navigate(e.target.getAttribute('href'), { replaceState: replace });
+
+	};
+
+	// This page
+	Roundish.navigate(location.pathname, { replaceState: true });
+
+</script>
+
+</body>
+</html>
