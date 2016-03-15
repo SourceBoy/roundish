@@ -28,4 +28,4 @@ Roundish.navigate('/foo/bar', {
 [examples.html](https://github.com/SourceBoy/roundish/blob/master/examples.html)
 
 ## Notes ##
-Routes with query strings are currently not supported.
+Routes with dynamic query strings are currently not supported.
