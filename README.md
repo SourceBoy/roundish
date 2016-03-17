@@ -12,7 +12,7 @@ A lightweight (1160 bytes gzipped), standalone HTML5 JavaScript navigation API t
 
 ## Usage ##
 ```html
-<script async src="roundish.js"></script>
+<script src="roundish.js"></script>
 ```
 ```javascript
 Roundish.addRoute('/foo/:i_am_a_named_parameter', function(parameters) {

@@ -1,6 +1,6 @@
-(function() {
+(function(_root) {
 
-	window.Roundish = {};
+	_root.Roundish = {};
 
 	var routes = {},
 		histories = []; // Navigation histories.
@@ -163,4 +163,4 @@
 
 	window.addEventListener('popstate', pop, false);
 
-}());
+}(window));
